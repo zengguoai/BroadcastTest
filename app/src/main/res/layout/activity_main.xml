@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.pb105.devicestest.MainActivity">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="命令:     mv"
+            android:layout_weight="1"/>
+
+        <EditText
+            android:id="@+id/prev_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="修改前文件名"
+            android:gravity="center"
+            android:layout_weight="1" />
+
+        <EditText
+            android:id="@+id/final_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="修改后文件名"
+            android:gravity="center"
+            android:layout_weight="1"/>
+    </LinearLayout>
+    <Button
+        android:id="@+id/send_cmd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="发送命令"/>
+
+    <TextView
+        android:id="@+id/cmd_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:gravity="center"/>
+
+</LinearLayout>
+
