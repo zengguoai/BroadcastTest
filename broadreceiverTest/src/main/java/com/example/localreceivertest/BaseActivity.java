@@ -10,6 +10,7 @@ import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 /**
  * Created by weiguanghua on 18-1-18.
@@ -21,6 +22,7 @@ public class BaseActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ActivityCollector.addActivity(this);
+        getWindow().setBackgroundDrawableResource(R.mipmap.backgroud);
     }
 
     @Override
@@ -30,11 +32,13 @@ public class BaseActivity extends AppCompatActivity {
         intentFilter.addAction("com.weibu.FORCE_OFFLINE");
         receiver = new ForceOfflineReceiver();
         registerReceiver(receiver,intentFilter);//注册广播
+        Log.d("wgh","注册广播");
     }
 
     class ForceOfflineReceiver extends BroadcastReceiver{//广播接受放在baseActivity，是因为所有的活动都是继承它。
         @Override
         public void onReceive(final Context context, final Intent intent) {
+            Log.d("wgh","接收到广播");
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
             builder.setTitle("Warning");
             builder.setMessage("You are forced to be offline.Please try to login again.");

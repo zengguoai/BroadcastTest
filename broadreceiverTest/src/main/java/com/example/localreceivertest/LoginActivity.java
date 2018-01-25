@@ -3,16 +3,12 @@ package com.example.localreceivertest;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import java.util.prefs.PreferencesFactory;
 
 public class LoginActivity extends BaseActivity {
     private EditText accountEdit;
@@ -53,7 +49,7 @@ public class LoginActivity extends BaseActivity {
                         editor.clear();
                     }
                     editor.apply();//提交修改
-                    Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+                    Intent intent = new Intent(LoginActivity.this,DisplayActivity.class);
                     startActivity(intent);
                     finish();
                 }else {

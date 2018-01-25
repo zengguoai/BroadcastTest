@@ -2,19 +2,21 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:layout_margin="2dp"
+    android:background="@drawable/edit_bg">
     <TextView
         android:id="@+id/contacts_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="contacts name"
-        android:textSize="25sp"/>
+        android:textSize="25sp" />
     <TextView
         android:id="@+id/contacts_number"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="contacts number"
-        android:textSize="18sp"/>
+        android:textSize="18sp" />
 
 
 
