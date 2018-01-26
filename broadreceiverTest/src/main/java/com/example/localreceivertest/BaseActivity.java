@@ -22,7 +22,7 @@ public class BaseActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ActivityCollector.addActivity(this);
-        getWindow().setBackgroundDrawableResource(R.mipmap.backgroud);
+        //getWindow().setBackgroundDrawableResource(R.mipmap.test);
     }
 
     @Override

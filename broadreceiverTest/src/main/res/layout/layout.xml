@@ -21,6 +21,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAllCaps="false"
-        android:text="Send force offline broadcast" />
+        android:text="强制下线" />
 
 </LinearLayout>
