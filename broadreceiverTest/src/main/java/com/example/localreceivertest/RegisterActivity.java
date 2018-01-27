@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -48,7 +49,6 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
             case 1:
                 createDatabase();
                 insertData();
-                Toast.makeText(RegisterActivity.this,"注册成功",Toast.LENGTH_LONG).show();
                 break;
             case 2:
                 backLogin();
@@ -64,22 +64,28 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     }
 
     private void insertData() {
-        if(pwdCorrect()){
+        String username = userEdit.getText().toString();
+        String password1 = passwEdit.getText().toString();
+        String password2 = passwAgEdit.getText().toString();
+        if(username!=null && username.length()!=0
+                && password1!=null && password1.length()!=0
+                && password2!=null && password2.length()!=0){
             createDatabase();
-            if(userEdit.getText().toString()!=null
-                    || passwEdit.getText().toString()!=null
-                    || passwAgEdit.getText().toString()!=null){
+            if(pwdCorrect()){
+                Log.d("wgh","userEdit = "+userEdit.getText().toString()+"\n"+"passwEdit="+passwEdit.getText().toString()+"\n"+
+                        "passwAgEdit="+passwAgEdit.getText().toString());
                 ContentValues contentValues = new ContentValues();
                 contentValues.put("userId",userEdit.getText().toString());
                 contentValues.put("password",passwEdit.getText().toString());
                 database.insert("userInfo",null,contentValues);
                 backLogin();
+                Toast.makeText(RegisterActivity.this,"注册成功",Toast.LENGTH_LONG).show();
             }else {
-                Toast.makeText(RegisterActivity.this,"帐号或密码不能为空",Toast.LENGTH_LONG).show();
+                Toast.makeText(RegisterActivity.this,"两次密码输入不一致，请重新输入",Toast.LENGTH_LONG).show();
+                passwAgEdit.setText("");
             }
         }else {
-            Toast.makeText(RegisterActivity.this,"两次密码输入不一致，请重新输入",Toast.LENGTH_LONG).show();
-            passwAgEdit.setText("");
+            Toast.makeText(RegisterActivity.this,"帐号或密码不能为空",Toast.LENGTH_LONG).show();
         }
 
     }
@@ -90,8 +96,13 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     }
 
     private boolean pwdCorrect() {
-        if(passwEdit.getText().toString().equals(passwAgEdit.getText().toString())){
-            return true;
+        String password = passwEdit.getText().toString();
+        String passwordAgain = passwAgEdit.getText().toString();
+        if(password!=null && passwordAgain!=null && password.length()!=0 && passwordAgain.length()!=0){
+            if(password.equals(passwordAgain)){
+                return true;
+            }
+          return false;
         }
         return false;
     }

@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.preference.PreferenceManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -28,11 +29,11 @@ public class LoginActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        accountEdit = findViewById(R.id.acount);
-        passwordEdit = findViewById(R.id.password);
-        loginButton = findViewById(R.id.login);
-        registerButton =findViewById(R.id.register_btn);
-        rememberCheckBox = findViewById(R.id.remember_pass);
+        accountEdit = (EditText) findViewById(R.id.acount);
+        passwordEdit = (EditText) findViewById(R.id.password);
+        loginButton = (Button) findViewById(R.id.login);
+        registerButton =(Button) findViewById(R.id.register_btn);
+        rememberCheckBox = (CheckBox) findViewById(R.id.remember_pass);
         myOpenHelper = new MyOpenHelper(this,"myUser.db",null,1);
         database = myOpenHelper.getWritableDatabase();
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);//获取sharedPreferences的实例
@@ -64,10 +65,14 @@ public class LoginActivity extends BaseActivity {
                     editor.clear();
                 }
                 editor.apply();
-                if(idExists() && account!=null && password!=null){
-                    Intent intent = new Intent(LoginActivity.this,DisplayActivity.class);
-                    startActivity(intent);
-                    finish();
+                if(readDatabseName()!=null && readDatabsePassword()!=null && readDatabseName().length()!=0 && readDatabsePassword().length()!=0){
+                     if(readDatabseName().equals(account) && readDatabsePassword().equals(password)){
+                         Log.d("wgh","account="+account+"\n"+"password="+password);
+                         Log.d("wgh","readDatabseName()="+readDatabseName()+"\n"+"readDatabsePassword()"+readDatabsePassword());
+                         Intent intent = new Intent(LoginActivity.this,DisplayActivity.class);
+                         startActivity(intent);
+                         finish();
+                   }
                 }else {
                     Toast.makeText(LoginActivity.this,"帐号或者密码错误，请重新输入",Toast.LENGTH_SHORT).show();
                 }
@@ -91,11 +96,4 @@ public class LoginActivity extends BaseActivity {
         return userPassword1;
     }
 
-    public boolean idExists(){
-        if(readDatabseName().equals(accountEdit.getText().toString())
-                && readDatabsePassword().equals(passwordEdit.getText().toString())){
-            return true;
-        }
-        return false;
-    }
 }
