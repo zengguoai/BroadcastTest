@@ -16,6 +16,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.localreceivertest.cameratest.CameraTest;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,13 +44,20 @@ public class DisplayActivity extends BaseActivity {
         }else {
             readContacts();
         }
-
+        Button camerabutton = findViewById(R.id.camera_test);
         Button forceOffline = (Button)findViewById(R.id.force_offline);
         forceOffline.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent("com.weibu.FORCE_OFFLINE");
                 sendBroadcast(intent);
+            }
+        });
+        camerabutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DisplayActivity.this, CameraTest.class);
+                startActivity(intent);
             }
         });
     }

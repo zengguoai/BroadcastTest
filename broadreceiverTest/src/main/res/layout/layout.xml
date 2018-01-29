@@ -21,6 +21,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAllCaps="false"
-        android:text="强制下线" />
+        android:text="强制下线"
+        android:textSize="18sp"/>
+    <Button
+        android:id="@+id/camera_test"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="相机测试"
+        android:textSize="18sp"/>
 
 </LinearLayout>
