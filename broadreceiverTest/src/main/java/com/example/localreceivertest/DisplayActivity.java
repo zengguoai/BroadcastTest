@@ -56,12 +56,24 @@ public class DisplayActivity extends BaseActivity {
         camerabutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(DisplayActivity.this, CameraTest.class);
-                startActivity(intent);
+                if(ContextCompat.checkSelfPermission(DisplayActivity.this, Manifest.permission.CAMERA)!= PackageManager.PERMISSION_GRANTED
+                        || ContextCompat.checkSelfPermission(DisplayActivity.this,Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
+                        || ContextCompat.checkSelfPermission(DisplayActivity.this,Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ){
+                    if(ActivityCompat.shouldShowRequestPermissionRationale(DisplayActivity.this,Manifest.permission.CAMERA)){
+                        Toast.makeText(DisplayActivity.this,"你已经拒绝过一次了",Toast.LENGTH_SHORT).show();
+                    }
+                    ActivityCompat.requestPermissions(DisplayActivity.this, new String[]{Manifest.permission.CAMERA,Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE},2);
+                }else {
+                   openCamera();
+                }
             }
         });
     }
 
+    private void openCamera(){
+        Intent intent = new Intent(DisplayActivity.this, CameraTest.class);
+        startActivity(intent);
+    }
     private void readContacts() {
         Cursor cursor =null;
         try {
@@ -92,6 +104,13 @@ public class DisplayActivity extends BaseActivity {
             case 1:
                 if(grantResults.length>0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
                     readContacts();
+                }else {
+                    Toast.makeText(this,"You denied thi permission",Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case 2:
+                if(grantResults.length>0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                    openCamera();
                 }else {
                     Toast.makeText(this,"You denied thi permission",Toast.LENGTH_SHORT).show();
                 }
